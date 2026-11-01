@@ -1,0 +1,97 @@
+	.file	"simple.cpp"
+	.intel_syntax noprefix
+	.text
+	.p2align 4
+	.globl	_Z6squarei
+	.type	_Z6squarei, @function
+_Z6squarei:
+.LFB32:
+	.cfi_startproc
+	endbr64
+	imul	edi, edi
+	mov	eax, edi
+	ret
+	.cfi_endproc
+.LFE32:
+	.size	_Z6squarei, .-_Z6squarei
+	.p2align 4
+	.globl	_Z14sum_of_squaresii
+	.type	_Z14sum_of_squaresii, @function
+_Z14sum_of_squaresii:
+.LFB33:
+	.cfi_startproc
+	endbr64
+	imul	edi, edi
+	imul	esi, esi
+	lea	eax, [rdi+rsi]
+	ret
+	.cfi_endproc
+.LFE33:
+	.size	_Z14sum_of_squaresii, .-_Z14sum_of_squaresii
+	.p2align 4
+	.globl	_Z12bump_counterv
+	.type	_Z12bump_counterv, @function
+_Z12bump_counterv:
+.LFB34:
+	.cfi_startproc
+	endbr64
+	add	DWORD PTR global_counter[rip], 1
+	ret
+	.cfi_endproc
+.LFE34:
+	.size	_Z12bump_counterv, .-_Z12bump_counterv
+	.section	.rodata.str1.8,"aMS",@progbits,1
+	.align 8
+.LC0:
+	.string	"Result: %d, Counter: %d, Magic: %d\n"
+	.section	.text.startup,"ax",@progbits
+	.p2align 4
+	.globl	main
+	.type	main, @function
+main:
+.LFB35:
+	.cfi_startproc
+	endbr64
+	sub	rsp, 8
+	.cfi_def_cfa_offset 16
+	mov	eax, DWORD PTR global_counter[rip]
+	mov	r8d, 42
+	mov	edx, 25
+	lea	rsi, .LC0[rip]
+	mov	edi, 2
+	lea	ecx, 1[rax]
+	xor	eax, eax
+	mov	DWORD PTR global_counter[rip], ecx
+	call	__printf_chk@PLT
+	xor	eax, eax
+	add	rsp, 8
+	.cfi_def_cfa_offset 8
+	ret
+	.cfi_endproc
+.LFE35:
+	.size	main, .-main
+	.globl	global_counter
+	.bss
+	.align 4
+	.type	global_counter, @object
+	.size	global_counter, 4
+global_counter:
+	.zero	4
+	.ident	"GCC: (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0"
+	.section	.note.GNU-stack,"",@progbits
+	.section	.note.gnu.property,"a"
+	.align 8
+	.long	1f - 0f
+	.long	4f - 1f
+	.long	5
+0:
+	.string	"GNU"
+1:
+	.align 8
+	.long	0xc0000002
+	.long	3f - 2f
+2:
+	.long	0x3
+3:
+	.align 8
+4:
